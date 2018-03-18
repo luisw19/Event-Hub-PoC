@@ -20,7 +20,8 @@ services:
     environment:
       KAFKA_BROKER_ID: 1
       KAFKA_ZOOKEEPER_CONNECT: 'zookeeper:2181'
-      KAFKA_ADVERTISED_LISTENERS: 'PLAINTEXT://broker:9092'
+      KAFKA_ADVERTISED_HOST_NAME: ${DOCKER_HOST_IP}
+      KAFKA_ADVERTISED_LISTENERS: 'PLAINTEXT://${DOCKER_HOST_IP}:9092'
       KAFKA_METRIC_REPORTERS: io.confluent.metrics.reporter.ConfluentMetricsReporter
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
       KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
@@ -71,6 +72,22 @@ services:
       CONNECT_INTERNAL_VALUE_CONVERTER: org.apache.kafka.connect.json.JsonConverter
       CONNECT_ZOOKEEPER_CONNECT: 'zookeeper:2181'
 
+  rest-proxy:
+    image: confluentinc/cp-kafka-rest:4.0.0
+    hostname: rest-proxy
+    depends_on:
+      - broker
+      - schema_registry
+    ports:
+      - "8084:8084"
+    environment:
+      KAFKA_REST_ZOOKEEPER_CONNECT: '${DOCKER_HOST_IP}:2181'
+      KAFKA_REST_LISTENERS: 'http://0.0.0.0:8084'
+      KAFKA_REST_SCHEMA_REGISTRY_URL: 'http://schema_registry:8081'
+      KAFKA_REST_HOST_NAME: 'rest-proxy'
+
+  ## UI and Management
+
   control-center:
     image: confluentinc/cp-enterprise-control-center
     hostname: control-center
@@ -90,3 +107,35 @@ services:
       CONTROL_CENTER_MONITORING_INTERCEPTOR_TOPIC_PARTITIONS: 1
       CONFLUENT_METRICS_TOPIC_REPLICATION: 1
       PORT: 9021
+
+  kafka-manager:
+    image: trivadisbds/kafka-manager
+    hostname: kafka-manager
+    depends_on:
+      - zookeeper
+    ports:
+      - "9000:9000"
+    environment:
+      ZK_HOSTS: 'zookeeper:2181'
+      APPLICATION_SECRET: 'letmein'
+
+  connect-ui:
+    image: landoop/kafka-connect-ui
+    container_name: connect-ui
+    depends_on:
+      - connect
+    ports:
+      - "8001:8000"
+    environment:
+      - "CONNECT_URL=http://connect:8083"
+
+  schema-registry-ui:
+    image: landoop/schema-registry-ui
+    hostname: schema-registry-ui
+    depends_on:
+      - broker
+      - schema_registry
+    ports:
+      - "8002:8000"
+    environment:
+      SCHEMAREGISTRY_URL: 'http://${DOCKER_HOST_IP}:8081'
