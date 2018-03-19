@@ -20,8 +20,10 @@ services:
     environment:
       KAFKA_BROKER_ID: 1
       KAFKA_ZOOKEEPER_CONNECT: 'zookeeper:2181'
-      KAFKA_ADVERTISED_HOST_NAME: ${DOCKER_HOST_IP}
-      KAFKA_ADVERTISED_LISTENERS: 'PLAINTEXT://${DOCKER_HOST_IP}:9092'
+      # KAFKA_ADVERTISED_HOST_NAME: ${DOCKER_HOST_IP}
+      # KAFKA_ADVERTISED_HOST_NAME: 127.0.0.1 -- IS THIS NEEDED?
+      # KAFKA_ADVERTISED_LISTENERS: 'PLAINTEXT://${DOCKER_HOST_IP}:9092'
+      KAFKA_ADVERTISED_LISTENERS: 'PLAINTEXT://broker:9092'
       KAFKA_METRIC_REPORTERS: io.confluent.metrics.reporter.ConfluentMetricsReporter
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
       KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
@@ -81,7 +83,8 @@ services:
     ports:
       - "8084:8084"
     environment:
-      KAFKA_REST_ZOOKEEPER_CONNECT: '${DOCKER_HOST_IP}:2181'
+      # KAFKA_REST_ZOOKEEPER_CONNECT: '${DOCKER_HOST_IP}:2181' -- NEED TO FIX
+      KAFKA_REST_ZOOKEEPER_CONNECT: '127.0.0.1:2181'
       KAFKA_REST_LISTENERS: 'http://0.0.0.0:8084'
       KAFKA_REST_SCHEMA_REGISTRY_URL: 'http://schema_registry:8081'
       KAFKA_REST_HOST_NAME: 'rest-proxy'
@@ -96,7 +99,7 @@ services:
       - broker
       - schema_registry
       - connect
-    ports:
+    ports:`
       - "9021:9021"
     environment:
       CONTROL_CENTER_BOOTSTRAP_SERVERS: 'broker:9092'
@@ -138,4 +141,5 @@ services:
     ports:
       - "8002:8000"
     environment:
-      SCHEMAREGISTRY_URL: 'http://${DOCKER_HOST_IP}:8081'
+      # SCHEMAREGISTRY_URL: 'http://${DOCKER_HOST_IP}:8081'
+      SCHEMAREGISTRY_URL: 'http://schema_registry:8081'
