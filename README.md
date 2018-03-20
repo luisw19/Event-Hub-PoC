@@ -41,3 +41,10 @@ The following APIs are available
 * Confluent Control Center: [http://localhost:9021](http://localhost:9021)
 * Schema Registry UI: [http://localhost:8002](http://localhost:8002)
 * Kafka Connect UI: [http://localhost:8001](http://localhost:8001)
+
+## Examples
+
+* Create Kafka Topic:
+```docker
+docker-compose exec broker kafka-topics --create --topic jntest --partitions 1 --replication-factor 1 --if-not-exists --zookeeper zookeeper:2181
+```
