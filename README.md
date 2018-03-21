@@ -16,7 +16,7 @@ https://docs.confluent.io/3.0.0/control-center/docs/quickstart.html
 
 1) Install docker and docker-compose
 
-2) Set the environment variable DOCKER_HOST_IP to the IP address of your docker host:
+2) Set the environment variable DOCKER_HOST_IP to the IP address of your docker host: (NOT NEEEDED LOCALLY)
 ```bash
 export DOCKER_HOST_IP=<IP address of your Docker Host>
 ```
@@ -46,5 +46,5 @@ The following APIs are available
 
 * Create Kafka Topic:
 ```docker
-docker-compose exec broker kafka-topics --create --topic jntest --partitions 1 --replication-factor 1 --if-not-exists --zookeeper zookeeper:2181
+docker-compose exec broker kafka-topics --create --topic itemTest --partitions 1 --replication-factor 1 --if-not-exists --zookeeper zookeeper:2181
 ```
