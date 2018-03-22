@@ -12,6 +12,9 @@ https://github.com/gschmutz/infrastructure-soaring-clouds-sequel/tree/master/doc
 Also recommend reading the following tutorial:
 https://docs.confluent.io/3.0.0/control-center/docs/quickstart.html
 
+## Windows 7 Docker Install
+https://docs.docker.com/toolbox/toolbox_install_windows/
+
 ## To start environment
 
 1) Install docker and docker-compose
