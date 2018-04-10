@@ -8,6 +8,10 @@
       "type": "int"
     },
     {
+      "name": "freeText",
+      "type": "string"
+    },
+    {
       "name": "itemType",
       "type": {
         "type": "enum",

@@ -44,7 +44,41 @@ The following APIs are available
 
 ## Examples
 
-* Create Kafka Topic:
+1) Create Kafka Topic:
 ```docker
 docker-compose exec broker kafka-topics --create --topic itemTest --partitions 1 --replication-factor 1 --if-not-exists --zookeeper zookeeper:2181
+```
+
+2) Create item schema using [Schema Registry UI](http://localhost:8002)
+* Schema Name: itemTest
+* Note the Schema ID after creating schema
+
+3) Connect to broker box
+```
+docker-compose exec broker bash
+```
+
+4) Register new consumer group with a new consumer instance
+```
+curl -d '{"name":"test","format":"avro","auto.offset.reset":"earliest"}' -H "Content-Type: application/vnd.kafka.v2+json" -X POST http://rest-proxy:8084/consumers/test_consumer
+```
+
+5) Subscribe consumer instance to a topic
+```
+curl -d '{"topics":["itemTest"]}' -H "Content-Type: application/vnd.kafka.v2+json" -X POST http://rest-proxy:8084/consumers/test_consumer/instances/test/subscription
+```
+
+6) Exit the broker container
+```
+exit
+```
+
+7) POST Messages -- Ensure in the JSON file, the "value_schema_id" is the same as the one from Step 2
+```
+ab -v 2 -p data_medium_2.json -T application/vnd.kafka.avro.v2+json -H 'Accept: application/vnd.kafka.v2+json' -c 1 -n 1 http://localhost:8084/topics/itemTest
+```
+
+8) GET Messages
+```
+ab -v 2 -H 'Accept: application/vnd.kafka.avro.v2+json' -c 1 -n 1 http://localhost:8084/consumers/test_consumer/instances/test/records
 ```
