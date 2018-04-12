@@ -68,16 +68,7 @@ vi /usr/bin/kafka-run-class
 In the vi window, find the KAFKA_HEAP_OPTS value and change it from `KAFKA_HEAP_OPTS="-Xmx256M"` to `KAFKA_HEAP_OPTS="-Xmx4096M"`
 Then Save and Quit the vi application. `:wq`
 
-The file `/etc/kafka/server.properties` needs to be changed to update the maximum request size (in bytes) the server will accept
-
-```
-vi /etc/kafka/server.properties
-```
-
-In the vi window, find the `socket.request.max.bytes` value and change it from `104857600` to a number of bytes larger than your expected message.
-Then Save and Quit the vi application. `:wq`
-
-After editing the two files, the broker container needs to be restarted to detect the new changes
+After editing the file, the broker container needs to be restarted to detect the new changes
 
 ```
 exit
@@ -87,44 +78,7 @@ docker-compose stop broker
 docker-compose start broker
 ```
 
-### 2) Connect Configuration
-```
-docker-compose exec connect bash
-
-apt-get update
-
-apt-get install vim
-```
-
-The file `/usr/bin/kafka-run-class` needs to be changed to update the heap size
-
-```
-vi /usr/bin/kafka-run-class
-```
-
-In the vi window, find the KAFKA_HEAP_OPTS value and change it from `KAFKA_HEAP_OPTS="-Xmx256M"` to `KAFKA_HEAP_OPTS="-Xmx4096M"`
-Then Save and Quit the vi application. `:wq`
-
-The file `/etc/kafka/server.properties` needs to be changed to update the maximum request size (in bytes) the server will accept
-
-```
-vi /etc/kafka/server.properties
-```
-
-In the vi window, find the `socket.request.max.bytes` value and change it from `104857600` to a number of bytes larger than your expected message.
-Then Save and Quit the vi application. `:wq`
-
-After editing the two files, the connect container needs to be restarted to detect the new changes
-
-```
-exit
-
-docker-compose stop connect
-
-docker-compose start connect
-```
-
-### 3) Rest Proxy Configuration
+### 2) Rest Proxy Configuration
 ```
 docker-compose exec rest-proxy bash
 
