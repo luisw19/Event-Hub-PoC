@@ -1,0 +1,20 @@
+docker-compose exec kafka kafka-topics --describe --topic foo --zookeeper localhost:32181
+
+docker-compose exec kafka bash -c "seq 42 | kafka-console-producer --request-required-acks 1 --broker-list localhost:29092 --topic foo && echo 'Produced 42 messages.'"
+
+docker-compose exec kafka kafka-console-consumer --bootstrap-server localhost:29092 --topic foo --from-beginning --max-messages 42
+
+
+docker-compose exec kafka kafka-topics --zookeeper localhost:32181 --create --topic poem --partitions 1 --replication-factor 1
+
+docker-compose exec control-center /bin/bash -c "echo testetstst >> /tmp/test.txt"
+
+docker-compose exec control-center ls -ltr /tmp
+
+docker-compose exec broker kafka-topics --create --topic foo --partitions 1 --replication-factor 1 --if-not-exists --zookeeper zookeeper:2181
+
+kafka-topics --describe --topic foo --zookeeper zookeeper:2181
+
+docker-compose exec broker kafka-topics --create --topic jntest --partitions 1 --replication-factor 1 --if-not-exists --zookeeper zookeeper:2181
+
+/usr/bin/kafka-avro-console-producer --broker-list localhost:29092 --topic bar --property value.schema='{"type":"record","name":"myrecord","fields":[{"name":"f1","type":"string"}]}'

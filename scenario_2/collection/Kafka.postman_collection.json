@@ -1,0 +1,394 @@
+{
+	"variables": [],
+	"info": {
+		"name": "Kafka",
+		"_postman_id": "37910803-32b5-0d9e-a003-e616eed8bf85",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Subjects",
+			"description": "",
+			"item": [
+				{
+					"name": "Get Kafka Subject Versions",
+					"request": {
+						"url": "http://localhost:8081/subjects/<subject>/versions",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get Kafka Subjects",
+					"request": {
+						"url": "http://localhost:8081/subjects",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get Kafka Subject Schema",
+					"request": {
+						"url": "http://localhost:8081/subjects/<subject>/versions/<versionID>",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Consumer",
+			"description": "",
+			"item": [
+				{
+					"name": "New Kafka Test Consumer (Small)",
+					"request": {
+						"url": "http://localhost:8084/consumers/test_consumer",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/vnd.kafka.v2+json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"name\": \"small\", \"format\": \"avro\", \"auto.offset.reset\": \"earliest\"}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "New Kafka Test Consumer (Medium)",
+					"request": {
+						"url": "http://localhost:8084/consumers/test_consumer",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/vnd.kafka.v2+json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"name\": \"medium\", \"format\": \"avro\", \"auto.offset.reset\": \"earliest\"}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "New Kafka Test Consumer (Large)",
+					"request": {
+						"url": "http://localhost:8084/consumers/test_consumer",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/vnd.kafka.v2+json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"name\": \"large\", \"format\": \"avro\", \"auto.offset.reset\": \"earliest\"}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Subscribe Consumer (Small) to topic",
+					"request": {
+						"url": "http://localhost:8084/consumers/test_consumer/instances/small/subscription",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/vnd.kafka.v2+json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"topics\":[\"jntest\"]}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Subscribe Consumer (Medium) to topic",
+					"request": {
+						"url": "http://localhost:8084/consumers/test_consumer/instances/medium/subscription",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/vnd.kafka.v2+json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"topics\":[\"bar\"]}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Subscribe Consumer (Large) to topic",
+					"request": {
+						"url": "http://localhost:8084/consumers/test_consumer/instances/large/subscription",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/vnd.kafka.v2+json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"topics\":[\"bar\"]}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get Records from Consumer (Small)",
+					"request": {
+						"url": "http://localhost:8084/consumers/test_consumer/instances/small/records",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/vnd.kafka.avro.v2+json",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get Records from Consumer (Medium)",
+					"request": {
+						"url": "http://localhost:8084/consumers/test_consumer/instances/medium/records",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/vnd.kafka.avro.v2+json",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get Records from Consumer (Large)",
+					"request": {
+						"url": "http://localhost:8084/consumers/test_consumer/instances/large/records",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/vnd.kafka.avro.v2+json",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Remove Consumer (Small)",
+					"request": {
+						"url": "http://localhost:8084/consumers/test_consumer/instances/small",
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/vnd.kafka.v2+json",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Remove Consumer (Medium)",
+					"request": {
+						"url": "http://localhost:8084/consumers/test_consumer/instances/medium",
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/vnd.kafka.v2+json",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Remove Consumer (Large)",
+					"request": {
+						"url": "http://localhost:8084/consumers/test_consumer/instances/large",
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/vnd.kafka.v2+json",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Schema - USE API Instead",
+			"description": "",
+			"item": [
+				{
+					"name": "Register new Value Schema for Topic",
+					"request": {
+						"url": "http://localhost:8081/subjects/item-value/versions",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/vnd.schemaregistry.v1+json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"schema\": \"{\\\"name\\\":\\\"test\\\",\\\"type\\\":\\\"record\\\",\\\"fields\\\": [{\\\"type\\\": \\\"string\\\",\\\"name\\\": \\\"field1\\\"},{\\\"type\\\": \\\"int\\\",\\\"name\\\": \\\"field2\\\"}]}\"\r\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Register new Key Schema for Topic",
+					"request": {
+						"url": "http://localhost:8081/subjects/jntest-key/versions",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/vnd.schemaregistry.v1+json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"schema\": \"{\\\"type\\\": \\\"string\\\"}\"}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get Schema for Subject",
+					"request": {
+						"url": "http://localhost:8081/subjects/item2/versions/latest",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Schema",
+					"request": {
+						"url": "http://localhost:8081/subjects/item-test",
+						"method": "DELETE",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Producer",
+			"description": "",
+			"item": [
+				{
+					"name": "Dummy Message on Topic",
+					"request": {
+						"url": "http://localhost:8084/topics/jntest",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/vnd.kafka.avro.v2+json",
+								"description": ""
+							},
+							{
+								"key": "Accept",
+								"value": "application/vnd.kafka.v2+json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"value_schema_id\": 3,\r\n  \"records\": [\r\n    {\r\n      \"value\": {\r\n        \"itemNo\": 111111,\r\n        \"itemType\": \"ART\",\r\n        \"itemState\": \"Created\",\r\n        \"registerDate\": \"21/03/2018\",\r\n        \"updateDate\": \"21/03/2018\",\r\n        \"deleteDate\": null,\r\n        \"itemNameLocal\": {\r\n          \"itemName\": \"testItem\",\r\n          \"presentationGroupCode\": null,\r\n          \"itemMeasurementSystem\": \"test measure\",\r\n          \"registerDate\": \"21/03/2018\",\r\n          \"updateDate\": \"21/03/2018\",\r\n          \"deleteDate\": null\r\n        },\r\n        \"productNameList\": {\r\n          \"productNameNo\": 11111111111,\r\n          \"productNameEn\": \"test name\",\r\n          \"productNameShortEn\": null,\r\n          \"sortNo\": \"123\",\r\n          \"registerDate\": \"21/03/2018\",\r\n          \"updateDate\": \"21/03/2018\",\r\n          \"deleteDate\": null\r\n        }\r\n      }\r\n    }\r\n  ]\r\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Get Topics",
+			"request": {
+				"url": "http://localhost:8084/topics",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/vnd.kafka.v2+json",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}
