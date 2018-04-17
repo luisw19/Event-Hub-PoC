@@ -12,6 +12,9 @@ https://github.com/gschmutz/infrastructure-soaring-clouds-sequel/tree/master/doc
 Also recommend reading the following tutorial:
 https://docs.confluent.io/3.0.0/control-center/docs/quickstart.html
 
+## Windows 7 Docker Install
+https://docs.docker.com/toolbox/toolbox_install_windows/
+
 ## To start environment
 
 1) Install docker and docker-compose
@@ -42,7 +45,70 @@ The following APIs are available
 * Schema Registry UI: [http://localhost:8002](http://localhost:8002)
 * Kafka Connect UI: [http://localhost:8001](http://localhost:8001)
 
-## Examples
+## Environment Configuration (Large Messages)
+
+As part of the Docker/Kafka configuration, the HEAP size needs to be increased on the Broker, Connect and Rest Proxy containers.
+The broker and connect containers need the server.properties file amending if you're sending messages over 100MB.
+
+### 1) Broker Configuration
+```
+docker-compose exec broker bash
+
+apt-get update
+
+apt-get install vim
+```
+
+The file `/usr/bin/kafka-run-class` needs to be changed to update the heap size
+
+```
+vi /usr/bin/kafka-run-class
+```
+
+In the vi window, find the KAFKA_HEAP_OPTS value and change it from `KAFKA_HEAP_OPTS="-Xmx256M"` to `KAFKA_HEAP_OPTS="-Xmx4096M"`
+Then Save and Quit the vi application. `:wq`
+
+After editing the file, the broker container needs to be restarted to detect the new changes
+
+```
+exit
+
+docker-compose stop broker
+
+docker-compose start broker
+```
+
+### 2) Rest Proxy Configuration
+```
+docker-compose exec rest-proxy bash
+
+apt-get update
+
+apt-get install vim
+```
+
+The file `/usr/bin/kafka-rest-run-class` needs to be changed to update the heap size
+
+```
+vi /usr/bin/kafka-rest-run-class
+```
+
+In the vi window, find the KAFKA_HEAP_OPTS value and change it from `KAFKA_HEAP_OPTS="-Xmx256M"` to `KAFKA_HEAP_OPTS="-Xmx4096M"`
+Then Save and Quit the vi application. `:wq`
+
+After editing the file, the rest proxy container needs to be restarted to detect the new changes
+
+```
+exit
+
+docker-compose stop rest-proxy
+
+docker-compose start rest-proxy
+```
+
+Now the environment should be ready to produce large messages - The retreival of large messages is still WIP.
+
+## Quickstart Examples
 
 1) Create Kafka Topic:
 ```docker
