@@ -13,7 +13,7 @@
 ## default : ORCL
 ## cannot be longer than 8 characters
 
-DB_SID=OraDoc
+DB_SID=DBKAFKA
 
 ## db passwd
 ## default : Oracle
