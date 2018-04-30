@@ -54,7 +54,7 @@ DB_BUNDLE=basic
 5) Run the database with the following command:
 
 ```bash
-  docker run -d --env-file ./db_env.dat -p 1527:1521 -p 5507:5500 -it --name OracleDB --shm-size="4g" container-registry.oracle.com/database/standard
+  docker run -d --env-file ./db_env.dat -p 1527:1521 -p 5507:5500 -it --name DBKAFKA --shm-size="4g" container-registry.oracle.com/database/standard
 ```
 
 ## Important Considerations
@@ -66,7 +66,7 @@ DB_BUNDLE=basic
   docker exec -it <container_name> /bin/bash
 ```
 
-Once you are in, you are running as root user. Use “su - oracle” to run as oracle user.
+  Once you are in, you are running as root user. Use “su - oracle” to run as oracle user.
 
 - Logs are kept under /home/oracle/setup/log. Note that the first database setup takes about 5 to 8 minutes. Logs are kept under /home/oracle/setup/log.
 
