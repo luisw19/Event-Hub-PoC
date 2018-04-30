@@ -1,3 +1,7 @@
+# Set Up Oracle Database Environment
+
+## Creation and start up of Oracle DB container
+
 1) Go to https://container-registry.oracle.com and open an account
 2) Browse to the Database official repository (https://container-registry.oracle.com/pls/apex/f?p=113:1:112716341210352::NO:::) and click "Continue" against "standard" Oracle Database
 3) Scroll down and click on "Accept"
@@ -50,5 +54,22 @@ DB_BUNDLE=basic
 5) Run the database with the following command:
 
 ```bash
-  docker run -d --env-file ./db_env.dat -p 1527:1521 -p 5507:5500 -it --name dockerDB --shm-size="8g" container-registry.oracle.com/database/standard
+  docker run -d --env-file ./db_env.dat -p 1527:1521 -p 5507:5500 -it --name OracleDB --shm-size="4g" container-registry.oracle.com/database/standard
 ```
+
+## Important Considerations
+
+- The database setup and startup are executed by running “/bin/bash /home/oracle/setup/dockerInit.sh“
+- To enter the container and run commands, use docker exec:
+
+```bash
+  docker exec -it <container_name> /bin/bash
+```
+
+Once you are in, you are running as root user. Use “su - oracle” to run as oracle user.
+
+- Logs are kept under /home/oracle/setup/log. Note that the first database setup takes about 5 to 8 minutes. Logs are kept under /home/oracle/setup/log.
+
+- To check whether the database setup is successful, check the log file “/home/oracle/setup/log/setupDB.log“. If “Done ! The database is ready for use .” is shown, the database setup was successful.
+
+- The restart of container takes less than 1 minute just to start the database and its listener. The startup log is “/home/oracle/setup/log/startupDB.log” 
