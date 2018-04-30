@@ -72,4 +72,4 @@ Once you are in, you are running as root user. Use “su - oracle” to run as o
 
 - To check whether the database setup is successful, check the log file “/home/oracle/setup/log/setupDB.log“. If “Done ! The database is ready for use .” is shown, the database setup was successful.
 
-- The restart of container takes less than 1 minute just to start the database and its listener. The startup log is “/home/oracle/setup/log/startupDB.log” 
+- The restart of container takes less than 1 minute just to start the database and its listener. The startup log is “/home/oracle/setup/log/startupDB.log”
