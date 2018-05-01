@@ -58,6 +58,11 @@ DB_BUNDLE=basic
 ```
 
 ## Important Considerations
+- Pulling the Oracle Database from the registry can take a while. Therefore an alternative is to first download the image with on the background and then run it. This can be done with the following command:
+
+```bash
+  nohup sudo docker pull container-registry.oracle.com/database/standard &
+```
 
 - The database setup and startup are executed by running “/bin/bash /home/oracle/setup/dockerInit.sh“
 - To enter the container and run commands, use docker exec:
