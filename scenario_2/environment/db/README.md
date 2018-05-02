@@ -56,6 +56,7 @@ DB_BUNDLE=basic
 ```bash
   sudo docker run -d --env-file ./db_env.dat -p 1527:1521 -p 5507:5500 -it --name DBKAFKA --shm-size="4g" container-registry.oracle.com/database/standard
 ```
+  Note: ensure that the file db_env.dat is either in the same directory where the command is executed, or a full path is used instead pointing to the file location
 
 ## Important Considerations
 - Pulling the Oracle Database from the registry can take a while. Therefore an alternative is to first download the image with on the background and then run it. This can be done with the following command:
