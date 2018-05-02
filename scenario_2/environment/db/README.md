@@ -48,13 +48,13 @@ DB_BUNDLE=basic
 4) Login with the oracle account against conteinr-registry.oracle.com
 
 ```bash
-  docker login container-registry.oracle.com
+  sudo docker login container-registry.oracle.com
 ```
 
 5) Run the database with the following command:
 
 ```bash
-  docker run -d --env-file ./db_env.dat -p 1527:1521 -p 5507:5500 -it --name DBKAFKA --shm-size="4g" container-registry.oracle.com/database/standard
+  sudo docker run -d --env-file ./db_env.dat -p 1527:1521 -p 5507:5500 -it --name DBKAFKA --shm-size="4g" container-registry.oracle.com/database/standard
 ```
 
 ## Important Considerations
@@ -68,7 +68,7 @@ DB_BUNDLE=basic
 - To enter the container and run commands, use docker exec:
 
 ```bash
-  docker exec -it <container_name> /bin/bash
+  sudo docker exec -it <container_name> /bin/bash
 ```
 
   Once you are in, you are running as root user. Use “su - oracle” to run as oracle user.
