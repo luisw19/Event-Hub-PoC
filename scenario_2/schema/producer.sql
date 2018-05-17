@@ -24,8 +24,8 @@ CREATE TABLE PROD_ITEM_STATE (
 CREATE TABLE PROD_ITEM (
   item_id       NUMBER(8,0) NOT NULL,
   item_no       NUMBER(8,0),
-  item_type_id  NUMBER,
-  item_state_id NUMBER,
+  item_type_id  NUMBER(8,0),
+  item_state_id NUMBER(8,0),
   register_date DATE,
   update_date   DATE,
   delete_date   DATE NULL,
