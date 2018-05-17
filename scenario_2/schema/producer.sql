@@ -22,14 +22,15 @@ CREATE TABLE PROD_ITEM_STATE (
 );
 
 CREATE TABLE PROD_ITEM (
-  item_id       NUMBER,
-  item_no       NUMBER,
-  item_type_id  NUMBER,
-  item_state_id NUMBER,
+  item_id       NUMBER(8,0) NOT NULL,
+  item_no       NUMBER(8,0),
+  item_type_id  NUMBER(8,0),
+  item_state_id NUMBER(8,0),
   register_date DATE,
   update_date   DATE,
   delete_date   DATE NULL,
   creation_date DATE,
+  modified      TIMESTAMP(0) NOT NULL,
   PRIMARY KEY (item_id),
   CONSTRAINT item_type_fk
   FOREIGN KEY (item_type_id) REFERENCES PROD_ITEM_TYPE (item_type_id),
@@ -62,7 +63,7 @@ CREATE TABLE PROD_PRODUCT_NAME_LIST (
   update_date           DATE,
   delete_date           DATE NULL,
   PRIMARY KEY (product_name_list_id),
-  CONSTRAINT item_fk
+  CONSTRAINT product_name_item_fk
   FOREIGN KEY (item_id) REFERENCES PROD_ITEM (item_id)
 );
 
